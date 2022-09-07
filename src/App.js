@@ -4,6 +4,7 @@ import searchIcon from './search.svg';
 import searchDarkIcon from './search_dark.svg';
 import Hold from "./hold"
 import mole from "./DizzyMole.png"
+import tommy from "./TommyIsSus.png"
 import handA from "./hand.avif"
 import handW from "./hand.webp"
 import handP from "./hand.png"
@@ -176,7 +177,12 @@ function App() {
           isError &&
           <div className='error'>
             <div className='errorBox'>
-              <img src={mole} alt=''></img>
+              {!isNoBuildErr &&
+                <img src={mole} alt=''></img>
+              }
+              {isNoBuildErr &&
+                <img src={tommy} alt=''></img>
+              }
               {!isNoBuildErr &&
                 <div className='error-text'>Something went wrong :(</div>
               }

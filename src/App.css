@@ -35,6 +35,11 @@
   align-items: center;
 }
 
+.errorBox img {
+  max-width: 10vw;
+  max-height: 10vw;
+}
+
 .error-text {
   margin-left: 20px;
   word-wrap: normal;
@@ -221,21 +226,21 @@ body::-webkit-scrollbar {
   left: 0%;
   top: 0%;
   animation: rotate-one 1s linear infinite;
-  border-bottom: 3px solid red;
+  border-bottom: 3px solid #00FEDE;
 }
 
 .inner.two {
   right: 0%;
   top: 0%;
   animation: rotate-two 1s linear infinite;
-  border-right: 3px solid yellow;
+  border-right: 3px solid #00FEDE;
 }
 
 .inner.three {
   right: 0%;
   bottom: 0%;
   animation: rotate-three 1s linear infinite;
-  border-top: 3px solid purple;
+  border-top: 3px solid #00FEDE;
 }
 
 @keyframes rotate-one {

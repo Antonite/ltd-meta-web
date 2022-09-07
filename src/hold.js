@@ -1,5 +1,5 @@
 import './hold.css';
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import mythIcon from './MythiumForDays.png';
 import doneIcon from './done.svg';
 import valueIcon from './value.png';
@@ -9,22 +9,21 @@ function Hold({ hold, scroll }) {
     const holdRef = useRef(null)
     const rows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
     const cols = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    const [posMap, setPosMap] = useState([])
-    const executeScroll = () => {
-        holdRef.current.scrollIntoView({ block: 'start', inline: 'start', behavior: 'smooth' });
-    }
     useEffect(() => {
+        const executeScroll = () => {
+            holdRef.current.scrollIntoView({ block: 'start', inline: 'start', behavior: 'smooth' });
+        }
         if (scroll) {
             executeScroll();
         }
-        console.log(hold);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div ref={holdRef} className='hold' key={"hold_" + hold.ID}>
             <div>
                 <div className='valueBox'>
-                    <img src={valueIcon}></img>
+                    <img src={valueIcon} alt=''></img>
                     <div className='valueText'>{hold.TotalValue}</div>
                 </div>
                 <table>
@@ -45,15 +44,23 @@ function Hold({ hold, scroll }) {
                 <div className='imageBox'>
                     {
                         hold.Units.map(u => (
-                            <img key={u.pos.y + "_" + u.pos.x} className='unitImage' style={{ top: ((14 - u.pos.y - 14.5) * 26) + 'px', left: ((u.pos.x - 0.5) * 26) + 'px' }} src={'https://cdn.legiontd2.com/' + u.icon}></img>
+                            <div key={u.pos.y + "_div_" + u.pos.x}>
+                                <img className='unitImage' style={{ top: ((14 - u.pos.y - 14.5) * 26) + 'px', left: ((u.pos.x - 0.5) * 26) + 'px' }} key={u.pos.y + "_img_" + u.pos.x} src={'https://cdn.legiontd2.com/' + u.icon} alt=''>
+                                </img>
+                                {
+                                    u.stacks !== "0" &&
+                                    <div className='unitImageStacks' style={{ top: ((14 - u.pos.y - 14.5) * 26) + 'px', left: ((u.pos.x - 0.5) * 26) + 19 + 'px' }} key={u.pos.y + "_stacks_" + u.pos.x}>{u.stacks}</div>
+                                }
+                            </div>
+
                         ))
                     }
                 </div>
             </div>
             <div className='sendBox'>
                 <div className='sendHeaders'>
-                    <img className='mythBoxHeader' src={mythIcon}></img>
-                    <img className='statsBoxHeader' src={doneIcon}></img>
+                    <img className='mythBoxHeader' src={mythIcon} alt=''></img>
+                    <img className='statsBoxHeader' src={doneIcon} alt=''></img>
                 </div>
                 {
                     hold.Sends.map(s => (
@@ -63,7 +70,7 @@ function Hold({ hold, scroll }) {
                             <div className='iconsCell'>
                                 {
                                     s.Sends.map(i => (
-                                        <img className='sendIcon' key={i.key} src={'https://cdn.legiontd2.com/' + i.icon}></img>
+                                        <img className='sendIcon' key={i.key} src={'https://cdn.legiontd2.com/' + i.icon} alt=''></img>
                                     ))
                                 }
                             </div>
