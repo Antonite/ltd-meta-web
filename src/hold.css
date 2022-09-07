@@ -22,5 +22,132 @@
 
 table {
     border-spacing: 0;
-    /* border-collapse: separate; */
+}
+
+.sendBox {
+    margin-left: 10px;
+    width: 25vw;
+    margin-top: 1.45em !important;
+}
+
+.hold {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.sendHeaders {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    border: 0;
+    border-bottom: 1px;
+    border-color: #00FEDEBB;
+    border-style: solid;
+}
+
+.sendRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+}
+
+.mythBoxHeader,
+.statsBoxHeader {
+    padding: 10px;
+    padding-top: 0;
+    max-height: 3em;
+    min-height: 3em;
+    height: 3em;
+}
+
+.mythCell,
+.leakCell,
+.iconsCell {
+    padding: 10px;
+}
+
+
+.mythBoxHeader,
+.mythCell,
+.statsBoxHeader,
+.leakCell {
+    max-width: 3em;
+    min-width: 3em;
+    width: 3em;
+}
+
+.sendIcon {
+    max-height: 3em;
+    height: 3em;
+}
+
+.iconsCell {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.valueBox {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 0.2em;
+}
+
+.valueBox img {
+    max-width: 0.8em;
+    max-height: 0.8em;
+    height: 0.8em;
+    margin-right: 2px;
+    margin-bottom: 0.2em;
+}
+
+
+/* media */
+@media only screen and (max-width: 800px) {
+    .hold {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .sendBox {
+        margin: 0;
+        margin-top: 10px;
+        width: 236px;
+        max-width: 236px;
+    }
+
+    .mythBoxHeader,
+    .statsBoxHeader {
+        padding: 7px;
+        padding-top: 0;
+        max-height: 3em;
+        min-height: 3em;
+        height: 3em;
+    }
+
+    .mythCell,
+    .leakCell,
+    .iconsCell {
+        padding: 7px;
+    }
+
+
+    .mythBoxHeader,
+    .mythCell,
+    .statsBoxHeader,
+    .leakCell {
+        max-width: 3em;
+        min-width: 3em;
+        width: 3em;
+    }
+
+    .sendIcon {
+        max-height: 2em;
+        height: 2em;
+    }
+
 }

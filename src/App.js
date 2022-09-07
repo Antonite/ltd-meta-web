@@ -3,10 +3,15 @@ import React, { useState, useEffect } from "react";
 import searchIcon from './search.svg';
 import searchDarkIcon from './search_dark.svg';
 import Hold from "./hold"
+import mole from "./DizzyMole.png"
+import handA from "./hand.avif"
+import handW from "./hand.webp"
+import handP from "./hand.png"
 
 function App() {
   const [units, setUnits] = useState([])
   const [unitMap, setUnitMap] = useState([])
+  const [mercs, setMercs] = useState([])
   const [searchVal, setsearchVal] = useState("")
   const [foundUnits, setFoundUnits] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -17,6 +22,8 @@ function App() {
   const [first, setFirst] = useState(0)
   const [isSearchingWave, setIsSearchingWave] = useState(false)
   const [waveHovered, setWaveHovered] = useState(false)
+  const [isError, setIsError] = useState(false)
+  const [isNoBuildErr, setIsNoBuildErr] = useState(false)
   const waves = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
   useEffect(() => {
@@ -26,19 +33,22 @@ function App() {
         .then(
           (result) => {
             let uMap = [];
-            setUnits(result);
-            result.map(u => {
+            setUnits(result.Units);
+            result.Units.forEach(u => {
               uMap[u.ID] = u;
             })
             setUnitMap(uMap);
+            setMercs(result.Mercs);
             setIsLoading(false);
           },
           (error) => {
             console.log(error);
             setIsLoading(false);
+            setIsError(true);
           }
         );
     };
+
     getUnits();
   }, []);
 
@@ -49,7 +59,7 @@ function App() {
   }
 
   function filterAndSetWaveVal(val) {
-    if (val == "") {
+    if (val === "") {
       setWaveVal(val);
       return
     }
@@ -64,11 +74,11 @@ function App() {
   }
 
   function getHolds(wave, unit) {
-    if (wave == "" || unit == "") {
+    if (wave === "" || unit === "") {
       return
     }
     let uid = findUnit(units, unit);
-    if (uid == "") {
+    if (uid === "") {
       return
     }
 
@@ -81,7 +91,12 @@ function App() {
         'Content-Type': 'application/json'
       }, body: JSON.stringify(req), method: "POST"
     })
-      .then(res => res.json())
+      .then((res) => {
+        if (res.status === 404) {
+          setIsNoBuildErr(true);
+        }
+        return res.json();
+      })
       .then(
         (result) => {
           let parsedHolds = [];
@@ -95,16 +110,34 @@ function App() {
               }
               let pos = s[1].split("|");
               let foundU = unitMap[s[0]]
-              if (foundU == undefined) {
+              if (foundU === undefined) {
                 return;
               }
               let pu = { unit: s[0], pos: { x: pos[0], y: pos[1] }, stacks: s[2], icon: foundU.IconPath };
               parsedUnits.push(pu);
             })
-            let h = { ID: hold.ID, Score: hold.Score, Sends: hold.Sends, TotalValue: hold.TotalValue, VersionAdded: hold.VersionAdded, Units: parsedUnits };
+            let parsedSends = [];
+            let i = 0;
+            hold.Sends.forEach(send => {
+              let icons = [];
+              let ss = send.Sends.split(",");
+              let k = 0;
+              ss.forEach(sname => {
+                let m = mercs[sname];
+                if (m === undefined) {
+                  return;
+                }
+                icons.push({ icon: m.IconPath, key: m.IconPath + k });
+                k = k + 1;
+              })
+              send.Sends = icons;
+              send.ID = i;
+              parsedSends.push(send);
+              i = i + 1;
+            })
+            let h = { ID: hold.ID, Score: hold.Score, Sends: parsedSends, TotalValue: hold.TotalValue, VersionAdded: hold.VersionAdded, Units: parsedUnits };
             parsedHolds.push(h);
           })
-          console.log(parsedHolds);
 
           if (parsedHolds.length > 0) {
             setFirst(parsedHolds[0].ID);
@@ -113,19 +146,17 @@ function App() {
           setIsLoading(false);
         },
         (error) => {
-          console.log(error);
+          setIsError(true);
           setIsLoading(false);
         }
       );
   }
 
   function clickUnit(name) {
-    setsearchVal(name);
+    setVal(name);
     setFoundUnits(findUnits(units, name));
     setHovered(false);
   }
-
-
 
   return (
     <div className="App">
@@ -142,7 +173,23 @@ function App() {
         }
 
         {
-          !isLoading &&
+          isError &&
+          <div className='error'>
+            <div className='errorBox'>
+              <img src={mole} alt=''></img>
+              {!isNoBuildErr &&
+                <div className='error-text'>Something went wrong :(</div>
+              }
+              {isNoBuildErr &&
+                <div className='error-text'>No good builds found for this request</div>
+              }
+            </div>
+
+          </div>
+        }
+
+        {
+          !isLoading && !isError &&
           <div className='searchBar'>
             <div className='rowFiller'></div>
             <div className='inputs'>
@@ -170,8 +217,8 @@ function App() {
               </div>
 
               <div onMouseDown={() => getHolds(waveVal, searchVal)} className='searchButton inputPart'>
-                <img className='light' src={searchIcon}></img>
-                <img className='dark' src={searchDarkIcon}></img>
+                <img className='light' src={searchIcon} alt=''></img>
+                <img className='dark' src={searchDarkIcon} alt=''></img>
               </div>
 
             </div>
@@ -179,9 +226,9 @@ function App() {
         }
 
         <picture className='hand'>
-          <source type='image/avif' srcSet={require('./green_hand.avif')} ></source>
-          <source type='image/webp' srcSet={require('./green_hand.webp')} ></source>
-          <img src={require('./green_hand.png')}></img>
+          <source type='image/avif' srcSet={handA} ></source>
+          <source type='image/webp' srcSet={handW} ></source>
+          <img src={handP} alt=''></img>
         </picture>
       </div>
 
@@ -189,11 +236,11 @@ function App() {
       <div className='mobileFiller'></div>
 
       {
-        !isLoading &&
-        <div className='holds'>
+        !isLoading && !isError &&
+        < div className='holds'>
           {
             holds.map(h => (
-              <Hold className="hold" hold={h} scroll={h.ID == first} key={"hold_" + h.ID}></Hold>
+              <Hold className="hold" hold={h} scroll={h.ID === first} key={"hold_" + h.ID}></Hold>
             ))
           }
         </div>
@@ -201,7 +248,7 @@ function App() {
 
 
 
-    </div>
+    </div >
   );
 }
 
@@ -209,6 +256,7 @@ function App() {
 function findUnits(units, name) {
   let found = [];
   let tn = name.trim().toLowerCase();
+
   units.forEach(u => {
     if (u.Name.toLowerCase().includes(tn)) {
       found.push(u)
@@ -221,7 +269,7 @@ function findUnit(units, name) {
   let tn = name.trim().toLowerCase();
   let out = "";
   units.forEach(u => {
-    if (u.Name.toLowerCase() == tn) {
+    if (u.Name.toLowerCase() === tn) {
       out = u.ID;
     }
   })
