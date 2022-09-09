@@ -278,7 +278,7 @@ body::-webkit-scrollbar {
 }
 
 /* media */
-@media only screen and (max-width: 800px) and (orientation:portrait) {
+@media only screen and (max-width: 800px) {
   .hand {
     display: none;
   }

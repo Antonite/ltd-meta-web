@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     let getUnits = () => {
-      fetch("http://localhost:8081/units")
+      fetch("https://api.ltdmeta.app:8081/units")
         .then(res => res.json())
         .then(
           (result) => {
@@ -86,7 +86,7 @@ function App() {
     setIsLoading(true);
 
     let req = { "id": uid, "wave": wave }
-    fetch("http://localhost:8081/holds", {
+    fetch("https://api.ltdmeta.app:8081/holds", {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
