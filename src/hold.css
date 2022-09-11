@@ -11,6 +11,20 @@
     position: relative;
 }
 
+.copyBox {
+    width: 234px;
+    height: 364px;
+    background-color: #00FEDEBB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.copyIcon {
+    /* margin: auto; */
+    width: 60%;
+}
 
 .unitImage {
     min-width: 24px;
@@ -35,6 +49,31 @@ table {
     margin-left: 10px;
     width: 25vw;
     margin-top: 1.45em !important;
+    max-height: 364px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.green {
+    color: #00FEDE;
+}
+
+.red {
+    color: #FE6100;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #151515;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #181818;
+    outline: 1px solid #00FEDE44;
 }
 
 .hold {
