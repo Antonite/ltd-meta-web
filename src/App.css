@@ -28,6 +28,13 @@
   font-size: x-large;
 }
 
+.nobuildsErr {
+  text-align: center;
+  align-self: center;
+  margin-bottom: 50vh;
+  font-size: x-large;
+}
+
 .errorBox {
   text-align: center;
   display: flex;
@@ -293,6 +300,14 @@ body::-webkit-scrollbar {
 
   .mobileFiller {
     min-height: 50vh;
+  }
+
+  .nobuildsErr {
+    display: flex;
+    flex-direction: row;
+    max-width: 200px;
+    margin-top: 100px;
+    margin-bottom: 0;
   }
 
 

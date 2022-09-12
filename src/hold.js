@@ -21,6 +21,35 @@ function Hold({ hold, scroll }) {
     }, []);
 
     function copy() {
+        let rolls = [];
+        hold.Units.forEach(function (u) {
+            rolls.push(u.unit);
+        })
+
+        let template = {
+            "Rolls": rolls.slice(0, 6),
+            "Gold": 10000,
+            "Mythium": 10000,
+            "Wave": parseInt(hold.Wave),
+            "ExtraRecommendedValue": 0,
+            "HorizontalPref": 2,
+            "VerticalPref": 0,
+        }
+        let y = -7.25
+        let x = -4.75
+        let towers = []
+        hold.Units.forEach(function (u) {
+            towers.push({
+                "T": u.unit,
+                "X": parseFloat(x) + parseFloat(u.pos.x),
+                "Z": parseFloat(y) + parseFloat(u.pos.y),
+                "S": parseInt(u.stacks)
+            })
+        })
+        template["Towers"] = towers;
+
+        navigator.clipboard.writeText(JSON.stringify(template));
+
         setIsCopy(true);
         setTimeout(() => { setIsCopy(false) }, 2000);
     }
@@ -70,7 +99,7 @@ function Hold({ hold, scroll }) {
                                     </img>
                                     {
                                         u.stacks !== "0" &&
-                                        <div className='unitImageStacks' style={{ top: ((14 - u.pos.y - 14.5) * 26) + 'px', left: ((u.pos.x - 0.5) * 26) + 19 + 'px' }} key={u.pos.y + "_stacks_" + u.pos.x}>{u.stacks}</div>
+                                        <div className='unitImageStacks' style={{ top: ((14 - u.pos.y - 14.5) * 26) + 'px', left: ((u.pos.x - 0.5) * 26) + 'px' }} key={u.pos.y + "_stacks_" + u.pos.x}>{u.stacks}</div>
                                     }
                                 </div>
 

@@ -3,11 +3,12 @@ import React, { useState, useEffect } from "react";
 import searchIcon from './search.svg';
 import searchDarkIcon from './search_dark.svg';
 import Hold from "./hold"
+import CustomError from './error';
 import mole from "./DizzyMole.png"
-import tommy from "./TommyIsSus.png"
 import handA from "./hand.avif"
 import handW from "./hand.webp"
 import handP from "./hand.png"
+
 
 function App() {
   const [units, setUnits] = useState([])
@@ -84,6 +85,8 @@ function App() {
     }
 
     setIsLoading(true);
+    setIsError(false);
+    setIsNoBuildErr(false);
 
     let req = { "id": uid, "wave": wave }
     fetch("https://api.ltdmeta.app:8081/holds", {
@@ -136,7 +139,7 @@ function App() {
               parsedSends.push(send);
               i = i + 1;
             })
-            let h = { ID: hold.ID, Score: hold.Score, Sends: parsedSends, TotalValue: hold.TotalValue, VersionAdded: hold.VersionAdded, Units: parsedUnits };
+            let h = { ID: hold.ID, Score: hold.Score, Sends: parsedSends, TotalValue: hold.TotalValue, VersionAdded: hold.VersionAdded, Units: parsedUnits, Wave: waveVal };
             parsedHolds.push(h);
           })
 
@@ -180,22 +183,15 @@ function App() {
               {!isNoBuildErr &&
                 <img src={mole} alt=''></img>
               }
-              {isNoBuildErr &&
-                <img src={tommy} alt=''></img>
-              }
               {!isNoBuildErr &&
                 <div className='error-text'>Something went wrong :(</div>
               }
-              {isNoBuildErr &&
-                <div className='error-text'>No good builds found for this request</div>
-              }
             </div>
-
           </div>
         }
 
         {
-          !isLoading && !isError &&
+          !isLoading && (!isError || isNoBuildErr) &&
           <div className='searchBar'>
             <div className='rowFiller'></div>
             <div className='inputs'>
@@ -238,12 +234,18 @@ function App() {
         </picture>
       </div>
 
+      {
+        isNoBuildErr &&
+        <div className='nobuildsErr'>
+          <CustomError></CustomError>
+        </div>
+      }
 
       <div className='mobileFiller'></div>
 
       {
         !isLoading && !isError &&
-        < div className='holds'>
+        <div className='holds'>
           {
             holds.map(h => (
               <Hold className="hold" hold={h} scroll={h.ID === first} key={"hold_" + h.ID}></Hold>
@@ -252,9 +254,7 @@ function App() {
         </div>
       }
 
-
-
-    </div >
+    </div>
   );
 }
 
@@ -268,6 +268,8 @@ function findUnits(units, name) {
       found.push(u)
     }
   })
+
+  found.sort((a, b) => (a.Name > b.Name) ? 1 : -1);
   return found
 }
 
