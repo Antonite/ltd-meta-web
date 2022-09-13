@@ -26,7 +26,7 @@ function App() {
   const [waveHovered, setWaveHovered] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isNoBuildErr, setIsNoBuildErr] = useState(false)
-  const waves = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+  const waves = ["1", "2", "3", "4", "5", "6", "7", "8"]
 
   useEffect(() => {
     let getUnits = () => {
@@ -37,7 +37,7 @@ function App() {
             let uMap = [];
             setUnits(result.Units);
             result.Units.forEach(u => {
-              uMap[u.ID] = u;
+              uMap[u.UnitID] = u;
             })
             setUnitMap(uMap);
             setMercs(result.Mercs);
@@ -264,6 +264,9 @@ function findUnits(units, name) {
   let tn = name.trim().toLowerCase();
 
   units.forEach(u => {
+    if (!u.Usable) {
+      return
+    }
     if (u.Name.toLowerCase().includes(tn)) {
       found.push(u)
     }
@@ -278,7 +281,7 @@ function findUnit(units, name) {
   let out = "";
   units.forEach(u => {
     if (u.Name.toLowerCase() === tn) {
-      out = u.ID;
+      out = u.UnitID;
     }
   })
 
