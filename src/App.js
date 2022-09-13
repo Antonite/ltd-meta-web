@@ -37,7 +37,7 @@ function App() {
             let uMap = [];
             setUnits(result.Units);
             result.Units.forEach(u => {
-              uMap[u.UnitID] = u;
+              uMap[u.ID] = u;
             })
             setUnitMap(uMap);
             setMercs(result.Mercs);
