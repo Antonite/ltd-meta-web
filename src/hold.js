@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import mythIcon from './MythiumForDays.png';
 import doneIcon from './done.svg';
 import valueIcon from './value.png';
+import mole from "./DizzyMole.png"
 
 
 function Hold({ hold, scroll }) {
@@ -113,12 +114,14 @@ function Hold({ hold, scroll }) {
                 <div className='sendHeaders'>
                     <img className='mythBoxHeader' src={mythIcon} alt='Total Mythium sent' title='Total Mythium sent'></img>
                     <img className='statsBoxHeader' src={doneIcon} alt='Chance of holding this send' title='Chance of holding this send'></img>
+                    <img className='statsBoxHeader' src={mole} alt='If leaked, average leak amount' title='If leaked, average leak amount'></img>
                 </div>
                 {
                     hold.Sends.map(s => (
                         <div key={"send_" + s.ID} className='sendRow'>
                             <div className='mythCell'>{s.TotalMythium}</div>
                             <div className={'leakCell ' + ((s.Held / (s.Held + s.Leaked)) > 0.67 ? "green" : "red")}>{Math.ceil((s.Held / (s.Held + s.Leaked)) * 100) + "%"}</div>
+                            <div className={'leakCell ' + (s.LeakedRatio < 30 ? "green" : "red")}>{s.LeakedRatio + "%"}</div>
                             <div className='iconsCell'>
                                 {
                                     s.Sends.map(i => (

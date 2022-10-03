@@ -26,7 +26,7 @@ function App() {
   const [waveHovered, setWaveHovered] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isNoBuildErr, setIsNoBuildErr] = useState(false)
-  const waves = ["1", "2", "3", "4", "5", "6", "7", "8"]
+  const waves = ["1", "2", "3", "4", "5"]
 
   useEffect(() => {
     let getUnits = () => {
@@ -230,7 +230,7 @@ function App() {
         <picture className='hand'>
           <source type='image/avif' srcSet={handA} ></source>
           <source type='image/webp' srcSet={handW} ></source>
-          <img src={handP} alt=''></img>
+          <img src={handP} alt='Legion TD 2 Mastermind'></img>
         </picture>
       </div>
 
