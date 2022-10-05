@@ -26,7 +26,7 @@ function App() {
   const [waveHovered, setWaveHovered] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isNoBuildErr, setIsNoBuildErr] = useState(false)
-  const waves = ["1", "2", "3", "4", "5"]
+  const waves = ["1", "2", "3", "4", "5", "6", "7", "8"]
 
   useEffect(() => {
     let getUnits = () => {
