@@ -6,7 +6,7 @@ import valueIcon from './value.png';
 import mole from "./DizzyMole.png"
 
 
-function Hold({ hold, scroll }) {
+function Hold({ hold, wave, scroll }) {
     const holdRef = useRef(null)
     const rows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
     const cols = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -61,7 +61,7 @@ function Hold({ hold, scroll }) {
                 isCopy &&
                 <div>
                     <div className='valueBox'>
-                        <img src={valueIcon} alt=''></img>
+                        <img src={valueIcon} alt='value'></img>
                         <div className='valueText'>{hold.TotalValue}</div>
                     </div>
                     <div className='copyBox'>
@@ -73,10 +73,26 @@ function Hold({ hold, scroll }) {
             {
                 !isCopy &&
                 <div>
-                    <div className='valueBox'>
-                        <img src={valueIcon} alt=''></img>
-                        <div className='valueText'>{hold.TotalValue}</div>
-                    </div>
+                    {
+                        wave !== undefined && wave !== 0 &&
+                        <div className='headerBox'>
+                            <div className='waveBox'>
+                                <div className='waveText'>Wave {wave}</div>
+                            </div>
+                            <div className='valueBox'>
+                                <img src={valueIcon} alt='value'></img>
+                                <div className='valueText'>{hold.TotalValue}</div>
+                            </div>
+                        </div>
+                    }
+                    {
+                        (wave === undefined || wave === 0) &&
+                        <div className='valueBox'>
+                            <img src={valueIcon} alt='value'></img>
+                            <div className='valueText'>{hold.TotalValue}</div>
+                        </div>
+                    }
+
                     <table onClick={() => copy()}>
                         <tbody>
                             {
@@ -96,7 +112,7 @@ function Hold({ hold, scroll }) {
                         {
                             hold.Units.map(u => (
                                 <div key={u.pos.y + "_div_" + u.pos.x}>
-                                    <img className='unitImage' style={{ top: ((14 - u.pos.y - 14.5) * 26) + 'px', left: ((u.pos.x - 0.5) * 26) + 'px' }} key={u.pos.y + "_img_" + u.pos.x} src={'https://cdn.legiontd2.com/' + u.icon} alt=''>
+                                    <img className='unitImage' style={{ top: ((14 - u.pos.y - 14.5) * 26) + 'px', left: ((u.pos.x - 0.5) * 26) + 'px' }} key={u.pos.y + "_img_" + u.pos.x} src={'https://cdn.legiontd2.com/' + u.icon} alt={u.Name}>
                                     </img>
                                     {
                                         u.stacks !== "0" &&
@@ -124,7 +140,7 @@ function Hold({ hold, scroll }) {
                             <div className={'leakCell ' + (s.LeakedRatio < 30 ? "green" : "red")}>{s.LeakedRatio + "%"}</div>
                             <div className='iconsCell'>
                                 {
-                                    s.Sends.map(i => (
+                                    s.Icons.map(i => (
                                         <img className='sendIcon' key={i.key} src={'https://cdn.legiontd2.com/' + i.icon} alt=''></img>
                                     ))
                                 }

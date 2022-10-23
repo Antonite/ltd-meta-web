@@ -1,0 +1,283 @@
+.Builds {
+    background-color: #151515;
+    min-height: 100%;
+    min-width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #00FEDE;
+}
+
+
+.frontPage {
+    height: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #00FEDE;
+}
+
+.nobuildsErr {
+    text-align: center;
+    align-self: center;
+    font-size: x-large;
+}
+
+.hand img {
+    max-width: 30vw;
+    height: auto;
+    position: static;
+}
+
+.hand {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+}
+
+.searchBar {
+    text-align: center;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    font-size: calc(10px + 2vmin);
+    /* color: white; */
+}
+
+input,
+.wave {
+    all: unset;
+    border: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px;
+    border-color: #00FEDE;
+    border-style: solid;
+    -webkit-transition: border-color 0.15s ease-out;
+    -moz-transition: border-color 0.15s ease-out;
+    -o-transition: border-color 0.15s ease-out;
+    transition: border-color 0.15s ease-out;
+}
+
+input:focus {
+    border: 0;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: #00FEDEBB;
+    -webkit-transition: border-color 0.15s ease-out;
+    -moz-transition: border-color 0.15s ease-out;
+    -o-transition: border-color 0.15s ease-out;
+    transition: border-color 0.15s ease-out;
+}
+
+.wave {
+    width: 3.5em;
+    margin-left: 0.5em;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.waveBox {
+    margin-left: 0.5em;
+}
+
+.inputs {
+    text-align: center;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.inputDivider {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.suggestions {
+    max-height: 40vh;
+    width: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.suggestion {
+    padding: 5px;
+    font-size: calc(10px + 1vmin);
+    background-color: #181818;
+}
+
+.suggestion:hover {
+    background-color: #252525;
+    cursor: pointer;
+}
+
+.searchButton {
+    /* background-color: ; */
+    padding: 5px;
+    margin-left: 0.5em;
+    border: 0;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: #00FEDE;
+}
+
+.searchButton:hover {
+    /* background-color: #00FEDEBB; */
+    border-color: #00FEDEBB;
+    cursor: pointer;
+}
+
+
+.searchButton img {
+    margin: auto;
+    width: 1em;
+    height: 1em;
+}
+
+.colFiller {
+    min-width: 30vh;
+}
+
+.rowFiller {
+    min-height: 47vh;
+}
+
+input::-webkit-calendar-picker-indicator {
+    display: none !important;
+}
+
+
+/* scrollbar */
+body::-webkit-scrollbar {
+    width: 0.8em;
+}
+
+.suggestions::-webkit-scrollbar {
+    width: 0.4em;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #151515;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #181818;
+    outline: 1px solid #00FEDE44;
+}
+
+
+/* holds */
+.holds {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.hold {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+
+.dark {
+    display: none;
+}
+
+/* media */
+@media only screen and (max-width: 1400px) {
+    .hand {
+        display: none;
+    }
+
+    .colFiller {
+        display: none;
+    }
+
+    .rowFiller {
+        min-height: 20vh;
+    }
+
+    .mobileFiller {
+        min-height: 50vh;
+    }
+
+    .nobuildsErr {
+        display: flex;
+        flex-direction: row;
+        max-width: 200px;
+        margin-top: 100px;
+        margin-bottom: 0;
+    }
+
+
+    .App {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .frontPage {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .inputs {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .inputPartSlim {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        margin-top: 1em;
+    }
+
+    .inputPart,
+    .wave {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .inputPart {
+        margin-top: 3em;
+    }
+
+    .wave,
+    .unit {
+        padding-bottom: 5px;
+    }
+
+
+
+    .waveBox {
+        margin-left: 0;
+    }
+
+    .searchButton {
+        margin-top: 4em;
+        background-color: #00FEDE;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+    }
+
+    .searchButton:hover {
+        background-color: #00FEDE;
+    }
+
+    .light {
+        display: none;
+    }
+
+    .dark {
+        display: block;
+    }
+
+}

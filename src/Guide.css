@@ -1,0 +1,53 @@
+.card {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 0;
+}
+
+.card:hover {
+    opacity: 0.9;
+    -webkit-transition: opacity 0.15s ease-out;
+    -moz-transition: opacity 0.15s ease-out;
+    -o-transition: opacity 0.15s ease-out;
+    transition: opacity 0.15s ease-out;
+    cursor: pointer;
+}
+
+
+.imgbox {
+    width: 100%;
+    height: auto;
+    position: relative;
+    text-align: center;
+}
+
+.blur {
+    opacity: 1;
+}
+
+.pImage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.sImage {
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    bottom: 0px;
+    right: 0px;
+}
+
+.title {
+    text-align: center;
+    padding: 5px;
+    font-size: small;
+}
+
+.suppl {
+    font-size: smaller;
+}

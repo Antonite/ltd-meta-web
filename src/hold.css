@@ -22,7 +22,6 @@
 }
 
 .copyIcon {
-    /* margin: auto; */
     width: 60%;
 }
 
@@ -136,6 +135,15 @@ table {
     flex-wrap: wrap;
 }
 
+.headerBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.waveBox {
+    margin: 0;
+}
+
 .valueBox {
     display: flex;
     justify-content: center;
@@ -153,7 +161,7 @@ table {
 
 
 /* media */
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1100px) {
     .hold {
         flex-direction: column;
         justify-content: center;

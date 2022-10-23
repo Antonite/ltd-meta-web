@@ -1,0 +1,46 @@
+a {
+    all: unset;
+}
+
+.navbar {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #151515;
+    color: #00FEDE;
+    z-index: 100;
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    padding-left: 10px;
+}
+
+.link {
+    padding: 10px;
+}
+
+.code {
+    padding: 10px;
+}
+
+.link:hover {
+    background-color: #252525;
+    cursor: pointer;
+}
+
+/* media */
+@media only screen and (max-width: 1400px) {
+    .navbar {
+        justify-content: center;
+    }
+
+    .links {
+        justify-content: center;
+    }
+
+}
