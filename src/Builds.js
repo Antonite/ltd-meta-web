@@ -182,7 +182,7 @@ function Builds() {
                             parsedSends.push(send);
                             i = i + 1;
                         })
-                        let h = { ID: hold.ID, Score: hold.Score, Sends: parsedSends, TotalValue: hold.TotalValue, VersionAdded: hold.VersionAdded, Units: parsedUnits, Wave: waveVal };
+                        let h = { ID: hold.ID, Score: hold.Score, Sends: parsedSends, TotalValue: hold.TotalValue, VersionAdded: hold.VersionAdded, Units: parsedUnits, Wave: waveVal, Workers: hold.Workers };
                         parsedHolds.push(h);
                     })
 

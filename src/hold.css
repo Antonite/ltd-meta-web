@@ -159,6 +159,10 @@ table {
     margin-bottom: 0.2em;
 }
 
+.gap {
+    margin-right: 3px;
+}
+
 
 /* media */
 @media only screen and (max-width: 1100px) {

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import mythIcon from './MythiumForDays.png';
 import doneIcon from './done.svg';
 import valueIcon from './value.png';
+import workerIcon from './Worker.png';
 import mole from "./DizzyMole.png"
 
 
@@ -62,7 +63,7 @@ function Hold({ hold, wave, scroll }) {
                 <div>
                     <div className='valueBox'>
                         <img src={valueIcon} alt='value'></img>
-                        <div className='valueText'>{hold.TotalValue}</div>
+                        <div>{hold.TotalValue}</div>
                     </div>
                     <div className='copyBox'>
                         <img className='copyIcon' src={doneIcon} alt=''></img>
@@ -81,15 +82,25 @@ function Hold({ hold, wave, scroll }) {
                             </div>
                             <div className='valueBox'>
                                 <img src={valueIcon} alt='value'></img>
-                                <div className='valueText'>{hold.TotalValue}</div>
+                                <div>{hold.TotalValue}</div>
+                            </div>
+                            <div className='valueBox'>
+                                <div className='gap'>{hold.WorkersStart + "->" + hold.Workers}</div>
+                                <img src={workerIcon} alt='average workers'></img>
                             </div>
                         </div>
                     }
                     {
                         (wave === undefined || wave === 0) &&
-                        <div className='valueBox'>
-                            <img src={valueIcon} alt='value'></img>
-                            <div className='valueText'>{hold.TotalValue}</div>
+                        <div className='headerBox'>
+                            <div className='valueBox'>
+                                <img src={valueIcon} alt='value'></img>
+                                <div>{hold.TotalValue}</div>
+                            </div>
+                            <div className='valueBox'>
+                                <div className='gap'>{"pushed to " + hold.Workers}</div>
+                                <img src={workerIcon} alt='average workers'></img>
+                            </div>
                         </div>
                     }
 

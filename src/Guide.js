@@ -1,9 +1,16 @@
 import './Guide.css';
+import React, { useState, useEffect } from "react";
 
 
-function Guide({ n, guide, mercs, umap, dfunc, hfunc }) {
+function Guide({ guide, mercs, umap, dfunc, hfunc }) {
+    const [primaryIcon, setPrimaryIcon] = useState([])
+    useEffect(() => {
+        let bigicon = umap[guide.MainUnitID].IconPath.split("/")[1]
+        setPrimaryIcon("splashes/" + bigicon)
+    }, []);
     function displayGuide() {
         let parsedHolds = [];
+        let lastW = 0;
         guide.Waves.forEach((gHold, waveVal) => {
             let us = gHold.Position.split(",");
             let parsedUnits = [];
@@ -39,7 +46,8 @@ function Guide({ n, guide, mercs, umap, dfunc, hfunc }) {
                 parsedSends.push(gSend);
                 i = i + 1;
             })
-            let h = { Score: gHold.Score, Sends: parsedSends, TotalValue: gHold.Value, Units: parsedUnits, Wave: waveVal };
+            let h = { Score: gHold.Score, Sends: parsedSends, TotalValue: gHold.Value, Units: parsedUnits, Wave: waveVal, Workers: gHold.Workers, WorkersStart: lastW };
+            lastW = gHold.Workers;
             parsedHolds.push(h);
         })
         hfunc(parsedHolds);
@@ -53,7 +61,7 @@ function Guide({ n, guide, mercs, umap, dfunc, hfunc }) {
                 <div className='suppl'>{"with " + umap[guide.SecondaryUnitID].Name}</div>
             </div>
             <div className='imgbox'>
-                <img className='pImage blur' src={'https://cdn.legiontd2.com/' + umap[guide.MainUnitID].IconPath} alt={umap[guide.MainUnitID].Name + " guide"}>
+                <img className='pImage blur' src={'https://cdn.legiontd2.com/' + primaryIcon} alt={umap[guide.MainUnitID].Name + " guide"}>
                 </img>
                 <img className='sImage blur' src={'https://cdn.legiontd2.com/' + umap[guide.SecondaryUnitID].IconPath} alt={umap[guide.SecondaryUnitID].Name + " guide"}>
                 </img>

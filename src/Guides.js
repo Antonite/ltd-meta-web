@@ -23,7 +23,6 @@ function Guides() {
 
     useEffect(() => {
         let getUnits = () => {
-            setIsLoading(true);
             fetch("https://api.ltdmeta.app:8081/units")
                 .then(res => res.json())
                 .then(
@@ -35,11 +34,9 @@ function Guides() {
                         })
                         setUnitMap(uMap);
                         setMercs(result.Mercs);
-                        setIsLoading(false);
                     },
                     (error) => {
                         console.log(error);
-                        setIsLoading(false);
                         setIsError(true);
                     }
                 );
@@ -114,9 +111,9 @@ function Guides() {
                     </div>
                     <div className='cardBox'>
                         {
-                            foundGuides.map((g, i) => (
-                                <div className="gbox" key={"guide_box_" + i}>
-                                    <Guide n={i} guide={g} mercs={mercs} umap={unitMap} dfunc={setShowDetails} hfunc={setHolds} key={"guide_" + i}></Guide>
+                            foundGuides.map(g => (
+                                <div className="gbox" key={"guide_box_" + g.MainUnitID + "_" + g.SecondaryUnitID}>
+                                    <Guide guide={g} mercs={mercs} umap={unitMap} dfunc={setShowDetails} hfunc={setHolds} key={"guide_" + g.MainUnitID + "_" + g.SecondaryUnitID}></Guide>
                                 </div>
                             ))
                         }
@@ -125,7 +122,7 @@ function Guides() {
                 </div>
             }
             {
-                showDetails &&
+                showDetails && !isLoading && !isError &&
                 <div className='guideDetailsBox'>
                     <div className='backButton' onClick={() => setShowDetails(false)}>
                         <img src={backIcon} alt='back'></img>
@@ -149,14 +146,13 @@ function findGuides(guides, unitMap, name) {
     let tn = name.trim().toLowerCase();
 
     guides.forEach(g => {
-        if (unitMap[g.MainUnitID].Name.toLowerCase().includes(tn)) {
+        if (tn == "" || unitMap[g.MainUnitID].Name.toLowerCase().includes(tn)) {
             found.push(g)
         } else if (unitMap[g.SecondaryUnitID].Name.toLowerCase().includes(tn)) {
             found.push(g)
         }
     })
 
-    found.sort((a, b) => (a.Score > b.Score) ? 1 : -1);
     return found
 }
 
