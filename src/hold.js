@@ -134,6 +134,9 @@ function Hold({ hold, wave, scroll }) {
                             ))
                         }
                     </div>
+                    <div className='player'>
+                        by <a href={'https://ltd2.app/user/' + hold.Player} target="_blank" className='playerLink'>{hold.Player}</a>
+                    </div>
                 </div>
             }
 

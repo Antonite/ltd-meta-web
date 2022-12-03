@@ -46,7 +46,7 @@ function Guide({ guide, mercs, umap, dfunc, hfunc }) {
                 parsedSends.push(gSend);
                 i = i + 1;
             })
-            let h = { Score: gHold.Score, Sends: parsedSends, TotalValue: gHold.Value, Units: parsedUnits, Wave: waveVal, Workers: gHold.Workers, WorkersStart: lastW };
+            let h = { Score: gHold.Score, Sends: parsedSends, TotalValue: gHold.Value, Units: parsedUnits, Wave: waveVal, Workers: gHold.Workers, WorkersStart: lastW, Player: gHold.Player };
             lastW = gHold.Workers;
             parsedHolds.push(h);
         })

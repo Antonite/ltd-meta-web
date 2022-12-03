@@ -11,6 +11,19 @@
     position: relative;
 }
 
+.player {
+    text-align: right;
+    flex-direction: row;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.playerLink {
+    margin-left: 0.4em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .copyBox {
     width: 234px;
     height: 364px;
